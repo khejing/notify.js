@@ -1,19 +1,19 @@
 import Moment from 'moment';
 let localNotification;
-if(DEVICE_TYPE === 'mobile' && PLATFORM !== 'webapp' && NETWORK === 'cordova'){
+if(DEVICE_TYPE === 'mobile' && PLATFORM !== 'webapp' && NETWORK_TYPE === 'cordova'){
     localNotification = cordova.require('de.appplant.cordova.plugin.local-notification.LocalNotification');
 }
 
 function makeSystemNotification(title, msgText, customData){
     if(DEVICE_TYPE === 'mobile' && PLATFORM !== 'webapp'){
-        if(NETWORK === 'cordova'){
+        if(NETWORK_TYPE === 'cordova'){
             localNotification.schedule({
                 id: Moment().valueOf(),
                 title: title,
                 text: msgText,
                 data: customData
             });
-        }else if(NETWORK === 'websocket'){
+        }else if(NETWORK_TYPE === 'websocket'){
             simpleCordova.showNotification(title, msgText, JSON.stringify(JSON.stringify(customData)));
         }
     }

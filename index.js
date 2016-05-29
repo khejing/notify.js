@@ -1,4 +1,5 @@
 import Moment from 'moment';
+import Logger from 'logger.js';
 let localNotification;
 if(DEVICE_TYPE === 'mobile' && PLATFORM !== 'webapp' && NETWORK_TYPE === 'cordova'){
     localNotification = cordova.require('de.appplant.cordova.plugin.local-notification.LocalNotification');
@@ -17,7 +18,7 @@ function makeSystemNotification(title, msgText, customData){
             simpleCordova.showNotification(title, msgText, JSON.stringify(JSON.stringify(customData)));
         }
     }
-    console.log("system notification sent with title: "+title+", text: "+msgText+", custom data: "+JSON.stringify(customData));
+    Logger.info({eto1_logtype: "systemNotificationSent", title: title, text: msgText, customData: JSON.stringify(customData)});
 }
 
 function systemNotificationVibrate(){
